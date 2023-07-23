@@ -11,3 +11,4 @@
 ### What's inside?
 
 * https://github.com/kirillplatonov/hotwire-livereload for live reload
+* https://github.com/rails/tailwindcss-rails

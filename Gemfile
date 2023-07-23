@@ -24,9 +24,6 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
-gem "cssbundling-rails"
-
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
@@ -65,3 +62,5 @@ group :test do
 end
 
 gem "hotwire-livereload", "~> 1.2", :group => :development
+
+gem "tailwindcss-rails", "~> 2.0"
