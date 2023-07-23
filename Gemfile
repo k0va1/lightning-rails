@@ -64,3 +64,5 @@ end
 gem "hotwire-livereload", "~> 1.2", :group => :development
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem "mrsk", "~> 0.14.0"
