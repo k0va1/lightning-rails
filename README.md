@@ -7,3 +7,7 @@
 * Add gems & libs
 * Add tests
 * Add script for renaming project
+
+### What's inside?
+
+* https://github.com/kirillplatonov/hotwire-livereload for live reload
