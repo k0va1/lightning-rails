@@ -5,9 +5,9 @@ x-app: &app
     context: .dockerdev
     dockerfile: Dockerfile
     args:
-      RUBY_VERSION: '3.2.0'
+      RUBY_VERSION: '3.2.2'
       PG_MAJOR: '13'
-      BUNDLER_VERSION: '2.4.4'
+      BUNDLER_VERSION: '2.4.10'
       NODE_MAJOR: '14'
       YARN_VERSION: '1.22.15'
   environment: &env

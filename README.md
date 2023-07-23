@@ -8,6 +8,11 @@
 * Add tests
 * Add script for renaming project
 
+### How to use
+
+* `make install`
+* `make start`
+
 ### What's inside?
 
 * https://github.com/kirillplatonov/hotwire-livereload for live reload
