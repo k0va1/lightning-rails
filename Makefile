@@ -47,10 +47,10 @@ dive:
 	docker-compose run --rm runner bash
 
 lint:
-	docker-compose run --rm runner bundle exec rubocop
+	docker-compose run --rm runner bundle exec rake rails_lint
 
 lint-fix:
-	docker-compose run --rm runner bundle exec rubocop -A
+	docker-compose run --rm runner bundle exec rake rails_lint -A
 
 g:
 	docker-compose run --rm runner bundle exec rails g $(filter-out $@,$(MAKECMDGOALS))
