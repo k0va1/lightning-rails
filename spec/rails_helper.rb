@@ -33,14 +33,13 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 Capybara.register_driver :chrome_headless do |app|
-  chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless disable-gpu window-size=1400,1400] })
+  chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome("goog:chromeOptions" => {args: %w[no-sandbox headless disable-gpu window-size=1400,1400]})
 
   Capybara::Selenium::Driver.new(app,
-                                 browser: :remote,
-                                 url: "http:://chrome:4444/wd/hub",
-                                 desired_capabilities: chrome_capabilities)
+    browser: :remote,
+    url: "http:://chrome:4444/wd/hub",
+    desired_capabilities: chrome_capabilities)
 end
-
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -88,7 +87,7 @@ RSpec.configure do |config|
 
   config.before do
     ActiveStorage::Current.url_options = {
-      host: "http://localhost:6000",
+      host: "http://localhost:6000"
     }
   end
 

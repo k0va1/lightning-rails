@@ -38,6 +38,9 @@ jobs:
           ruby-version: '3.2.2'
           bundler-cache: true
 
+      - name: Run linters
+        run: bundle exec rake standard
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:

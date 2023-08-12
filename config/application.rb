@@ -7,7 +7,7 @@ Bundler.require(*Rails.groups)
 
 module RapidRails
   class Application < Rails::Application
-    Dir[Rails.root.join("lib/middleware/**/*.{rb}")].sort .each { |file| require file }
+    Dir[Rails.root.join("lib/middleware/**/*.{rb}")].sort.each { |file| require file }
 
     config.load_defaults 7.0
 
