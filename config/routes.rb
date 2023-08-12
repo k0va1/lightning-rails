@@ -1,8 +1,23 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+require "sidekiq/web"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+if Rails.env.production?
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    ActiveSupport::SecurityUtils.secure_compare(Digest::SHA256.hexdigest(username),
+                                                Digest::SHA256.hexdigest(Rails.application.credentials.sidekiq_admin_name)) &
+    ActiveSupport::SecurityUtils.secure_compare(Digest::SHA256.hexdigest(password),
+                                                Digest::SHA256.hexdigest(Rails.application.credentials.sidekiq_admin_password))
+  end
+end
+
+Rails.application.routes.draw do
+  root "home#index"
+
+  # TODO: remove after Rails 7.1
+  get "/up" => "health#show"
+
+  namespace :admin do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 end

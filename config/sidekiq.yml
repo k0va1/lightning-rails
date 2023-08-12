@@ -1,0 +1,25 @@
+---
+:verbose: false
+:concurrency: 10
+:timeout: 25
+
+:queues:
+  - critical
+  - default
+  - <%= `hostname`.strip %>
+  - low
+
+# you can override concurrency based on environment
+development:
+  :concurrency: 2
+production:
+  :concurrency: 25
+staging:
+  :concurrency: 15
+
+# SCHEDULED TASKS
+#:scheduler:
+#  :schedule:
+#    hello_world:
+#      cron: '0 * * * * *'   # Runs once per minute
+#      class: HelloWorld

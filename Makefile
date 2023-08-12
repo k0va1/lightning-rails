@@ -3,19 +3,13 @@
 APPDIR=$(PWD)
 
 install:
-	docker-compose run --rm  runner bundle install
+	docker-compose run --rm runner bundle install && yarn install
 
 rm-rails-pid:
 	yes | rm -f $(APPDIR)/tmp/pids/server.pid
 
-backend: rm-rails-pid
-	docker-compose up rails sidekiq anycable
-
 start: rm-rails-pid
-	docker-compose up server
-
-jobs:
-	docker-compose up sidekiq
+	docker-compose up rails css js sidekiq
 
 clear-jobs:
 	docker-compose run --rm runner bundle exec rails runner 'Sidekiq.redis { |conn| conn.flushdb }'
@@ -24,7 +18,7 @@ db-reset:
 	docker-compose run --rm runner bundle exec rails db:drop
 
 db-prepare: db-reset
-	docker-compose run --rm runner bundle exec rails db:create db:migrate seeds
+	docker-compose run --rm runner bundle exec rails db:create db:migrate db:seed
 	docker-compose run --rm -e RAILS_ENV=test runner bundle exec rails db:create db:migrate
 
 db-migrate:
@@ -38,6 +32,7 @@ stop:
 	docker-compose down
 
 test:
+	docker-compose up -d chrome-server
 	docker-compose run --rm -e RAILS_ENV=test runner bundle exec rspec $(filter-out $@,$(MAKECMDGOALS))
 
 cons:
@@ -51,6 +46,10 @@ lint:
 
 lint-fix:
 	docker-compose run --rm runner bundle exec rake rails_lint -A
+
+change-secrets:
+	docker-compose run --rm runner bundle exec rails credentials:edit
+	sudo chown -R $(USER):$(USER) .
 
 g:
 	docker-compose run --rm runner bundle exec rails g $(filter-out $@,$(MAKECMDGOALS))

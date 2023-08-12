@@ -1,11 +1,12 @@
 development:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: <%= Rails.application.credentials.redis_url %>
 
 test:
   adapter: test
+  url: <%= Rails.application.credentials.redis_url %>
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: app_production
+  url: <%= Rails.application.credentials.redis_url %>
+  channel_prefix: rapid_rails_production
