@@ -2,11 +2,11 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= Rails.application.credentials.database_url %>
 
 development:
   <<: *default
   database: rapid_rails_development
+  url: <%= Rails.application.credentials.database_url %>
 
 test:
   <<: *default
@@ -15,3 +15,4 @@ test:
 production:
   <<: *default
   database: rapid_rails_production
+  url: <%= Rails.application.credentials.database_url %>

@@ -29,6 +29,7 @@ group :development, :test do
   gem "bullet", "~> 7.0.0"
   gem "faker"
   gem "rails-lint"
+  gem "debug"
 end
 
 group :development do

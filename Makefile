@@ -48,7 +48,7 @@ lint-fix:
 	docker-compose run --rm runner bundle exec rake rails_lint -A
 
 change-secrets:
-	docker-compose run --rm runner bundle exec rails credentials:edit
+	docker-compose run --rm runner bundle exec rails credentials:edit --environment=$(filter-out $@,$(MAKECMDGOALS))
 	sudo chown -R $(USER):$(USER) .
 
 g:

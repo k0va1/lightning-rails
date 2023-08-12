@@ -9,8 +9,6 @@ jobs:
       postgres:
         image: postgres:13.0
         env:
-          POSTGRES_DB: rapid_rails_test
-          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
@@ -50,15 +48,12 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Setup test database
-        env:
-          PGHOST: localhost
-          PGUSER: myapp
-        run: |
-          bin/rails db:setup
-
       - name: Run tests
-        run: bundle exec rspec
+        run: |
+          bundle exec rails db:setup
+          bundle exec rake assets:precompile
+          bundle exec rspec
         env:
-          DATABASE_URL: localhost://postgres:postgres@postgres:5432
-          REDIS_URL: localhost://redis:6379
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/rapid_rails_test
+          REDIS_URL: redis://redis:6379
