@@ -1,6 +1,7 @@
 #!/bin/bash
 
 project_name="mvp"
+dockerhub_username="hetsketch"
 prod_ip="1.1.1.1"
 
 rename_project () {
@@ -8,7 +9,7 @@ rename_project () {
   cd . || return
   new_dir=${PWD%/*}/$project_name
   mv -- "$PWD" "$new_dir" && cd -- "$new_dir"
-  exec zsh
+  exec $SHELL
 }
 
 remove_git_origin () {
@@ -32,5 +33,8 @@ prepare_for_deploy () {
   sed -i "s/<prod_ip>/$prod_ip/g" config/deploy.yml
 }
 
-#rename_project
+rename_project
 rename_database_names
+rename_docker_compose
+rename_cable
+prepare_for_deploy
