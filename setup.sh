@@ -31,6 +31,8 @@ rename_cable () {
 
 prepare_for_deploy () {
   sed -i "s/<prod_ip>/$prod_ip/g" config/deploy.yml
+  sed -i "s/hetsketch/$dockerhub_username/g" config/deploy.yml
+  sed -i "s/rapid_rails/$project_name/g" config/deploy.yml
 }
 
 rename_project
