@@ -7,17 +7,17 @@
 # Fails unless the combined status is "success"
 #
 # These environment variables are available:
-# MRSK_RECORDED_AT
-# MRSK_PERFORMER
-# MRSK_VERSION
-# MRSK_HOSTS
-# MRSK_COMMAND
-# MRSK_SUBCOMMAND
-# MRSK_ROLE (if set)
-# MRSK_DESTINATION (if set)
+# KAMAL_RECORDED_AT
+# KAMAL_PERFORMER
+# KAMAL_VERSION
+# KAMAL_HOSTS
+# KAMAL_COMMAND
+# KAMAL_SUBCOMMAND
+# KAMAL_ROLE (if set)
+# KAMAL_DESTINATION (if set)
 
 # Only check the build status for production deployments
-if ENV["MRSK_COMMAND"] == "rollback" || ENV["MRSK_DESTINATION"] != "production"
+if ENV["KAMAL_COMMAND"] == "rollback" || ENV["KAMAL_DESTINATION"] != "production"
   exit 0
 end
 

@@ -5,15 +5,15 @@
 # Warms DNS before connecting to hosts in parallel
 #
 # These environment variables are available:
-# MRSK_RECORDED_AT
-# MRSK_PERFORMER
-# MRSK_VERSION
-# MRSK_HOSTS
-# MRSK_ROLE (if set)
-# MRSK_DESTINATION (if set)
-# MRSK_RUNTIME
+# KAMAL_RECORDED_AT
+# KAMAL_PERFORMER
+# KAMAL_VERSION
+# KAMAL_HOSTS
+# KAMAL_ROLE (if set)
+# KAMAL_DESTINATION (if set)
+# KAMAL_RUNTIME
 
-hosts = ENV["MRSK_HOSTS"].split(",")
+hosts = ENV["KAMAL_HOSTS"].split(",")
 results = nil
 max = 3
 

@@ -1,33 +1,29 @@
-# Name of your application. Used to uniquely configure containers.
 service: rapid_rails
-
-# Name of the container image.
 image: hetsketch/rapid_rails
 
-# Deploy to these servers.
 servers:
   web:
     hosts:
-      - <prod_ip>
+      - <%= ENV["DEPLOY_HOST"] %>
     options:
       add-host: host.docker.internal:host-gateway
+      memory: 512M
 
-# Credentials for your image host.
 registry:
   username: hetsketch
   password:
-    - MRSK_REGISTRY_PASSWORD
+    - KAMAL_REGISTRY_PASSWORD
 
 ssh:
   user: www
 
 builder:
+  multiarch: false
   args:
     RUBY_VERSION: '3.2.2'
     NODE_VERSION: '18.12.0'
     YARN_VERSION: '1.22.15'
     RAILS_ENV: production
-  multiarch: false
 
 env:
   clear:
@@ -40,7 +36,7 @@ env:
 accessories:
   postgres:
     image: postgres:15.0
-    host: <prod_ip>
+    host: <%= ENV["DEPLOY_HOST"] %>
     port: 5432
     env:
       clear:
@@ -51,6 +47,7 @@ accessories:
       - pg_data:/var/lib/postgresql/data
   redis:
     image: redis:7.0
+    host: <%= ENV["DEPLOY_HOST"] %>
     port: 6379
     directories:
       - redis_data:/data
@@ -59,6 +56,10 @@ traefik:
   args:
     accesslog: true
     accesslog.format: json
+  labels:
+    traefik.http.middlewares.test-compress.compress: true
+    traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control: public,max-age=2592000
 
 healthcheck:
   path: /up
+  interval: 10s

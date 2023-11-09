@@ -9,12 +9,12 @@
 # 4. The version we are deploying matches the remote
 #
 # These environment variables are available:
-# MRSK_RECORDED_AT
-# MRSK_PERFORMER
-# MRSK_VERSION
-# MRSK_HOSTS
-# MRSK_ROLE (if set)
-# MRSK_DESTINATION (if set)
+# KAMAL_RECORDED_AT
+# KAMAL_PERFORMER
+# KAMAL_VERSION
+# KAMAL_HOSTS
+# KAMAL_ROLE (if set)
+# KAMAL_DESTINATION (if set)
 
 if [ -n "$(git status --porcelain)" ]; then
   echo "Git checkout is not clean, aborting..." >&2
@@ -43,8 +43,8 @@ if [ -z "$remote_head" ]; then
   exit 1
 fi
 
-if [ "$MRSK_VERSION" != "$remote_head" ]; then
-  echo "Version ($MRSK_VERSION) does not match remote HEAD ($remote_head), aborting..." >&2
+if [ "$KAMAL_VERSION" != "$remote_head" ]; then
+  echo "Version ($KAMAL_VERSION) does not match remote HEAD ($remote_head), aborting..." >&2
   exit 1
 fi
 

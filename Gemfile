@@ -10,7 +10,6 @@ gem "bundler-audit"
 gem "counter_culture", "~> 2.0"
 gem "hotwire-livereload", "~> 1.2", group: :development
 gem "jsbundling-rails"
-gem "mrsk", "~> 0.14.0"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "rails", "~> 7.0"
