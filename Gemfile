@@ -12,7 +12,7 @@ gem "hotwire-livereload", "~> 1.2", group: :development
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.1"
 gem "redis", "~> 4.0"
 gem "sprockets-rails"
 gem "stimulus-rails"
@@ -39,8 +39,8 @@ end
 group :test do
   gem "capybara"
   gem "database_cleaner-active_record"
+  gem "cuprite"
   gem "rspec-rails", "~> 6.0.0"
-  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "webmock"

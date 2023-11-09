@@ -14,8 +14,7 @@ end
 Rails.application.routes.draw do
   root "home#index"
 
-  # TODO: remove after Rails 7.1
-  get "/up" => "health#show"
+  get "up" => "rails/health#show", :as => :rails_health_check
 
   namespace :admin do
     mount Sidekiq::Web => "/sidekiq"
