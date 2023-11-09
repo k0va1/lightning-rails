@@ -14,6 +14,7 @@ RUN apt-get update -qq \
     curl \
     less \
     git \
+    libvips \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -49,7 +50,6 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrad
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
     postgresql-client-$PG_MAJOR \
-    libvips-dev \
     nodejs \
     yarn=$YARN_VERSION-1 \
     $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) && \
@@ -74,8 +74,5 @@ RUN gem update --system && \
     rm /usr/local/lib/ruby/gems/*/specifications/default/bundler-*.gemspec && \
     gem uninstall bundler && \
     gem install bundler -v $BUNDLER_VERSION
-
-# Create a directory for the app code
-RUN mkdir -p /app
 
 WORKDIR /app
