@@ -11,7 +11,7 @@ gem "counter_culture", "~> 2.0"
 gem "hotwire-livereload", "~> 1.2", group: :development
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.4"
 gem "rails", "~> 7.1"
 gem "redis", "~> 4.0"
 gem "sprockets-rails"
@@ -23,7 +23,7 @@ gem "sidekiq"
 gem "sidekiq-scheduler"
 
 group :development, :test do
-  gem "bullet", "~> 7.0.0"
+  gem "bullet", "~> 7.1.3"
   gem "debug"
   gem "factory_bot_rails"
   gem "faker"

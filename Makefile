@@ -5,10 +5,7 @@ APPDIR=$(PWD)
 install:
 	docker-compose run --rm runner bundle install && yarn install
 
-rm-rails-pid:
-	yes | rm -f $(APPDIR)/tmp/pids/server.pid
-
-start: rm-rails-pid
+start:
 	docker-compose up rails css js sidekiq
 
 clear-jobs:
