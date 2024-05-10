@@ -1,5 +1,6 @@
 .PHONY: test
 
+GROUP=$(shell id -gn)
 APPDIR=$(PWD)
 
 install:
@@ -46,11 +47,11 @@ lint-fix:
 
 change-secrets:
 	docker-compose run --rm runner bundle exec rails credentials:edit --environment=$(filter-out $@,$(MAKECMDGOALS))
-	sudo chown -R $(USER):$(USER) .
+	sudo chown -R $(USER):$(GROUP) .
 
 g:
 	docker-compose run --rm runner bundle exec rails g $(filter-out $@,$(MAKECMDGOALS))
-	sudo chown -R $(USER):$(USER) .
+	sudo chown -R $(USER):$(GROUP) .
 
 d:
 	docker-compose run --rm runner bundle exec rails d $(filter-out $@,$(MAKECMDGOALS))
