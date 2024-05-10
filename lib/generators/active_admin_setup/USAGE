@@ -1,0 +1,8 @@
+Description:
+    Explain the generator
+
+Example:
+    bin/rails generate active_admin_setup Thing
+
+    This will create:
+        what/will/it/create
