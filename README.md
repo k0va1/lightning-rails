@@ -13,6 +13,13 @@
 * `make install`
 * `make start`
 
+### How to add ActiveAdmin
+
+```
+make dive
+be rails g active_admin_setup
+```
+
 ### What's inside?
 
 * https://github.com/kirillplatonov/hotwire-livereload for live reload
