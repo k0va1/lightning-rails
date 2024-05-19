@@ -30,7 +30,7 @@ stop:
 	docker-compose down
 
 test:
-	docker-compose up -d chrome-server
+	docker-compose up -d chrome
 	docker-compose run --rm -e RAILS_ENV=test runner bundle exec rspec $(filter-out $@,$(MAKECMDGOALS))
 
 cons:
