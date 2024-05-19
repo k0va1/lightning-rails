@@ -5,14 +5,14 @@ default: &default
 
 development:
   <<: *default
-  database: rapid_rails_development
+  database: lightning_rails_development
   url: <%= Rails.application.credentials.database_url %>
 
 test:
   <<: *default
-  database: rapid_rails_test
+  database: lightning_rails_test
 
 production:
   <<: *default
-  database: rapid_rails_production
+  database: lightning_rails_production
   url: <%= Rails.application.credentials.database_url %>

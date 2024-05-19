@@ -27,29 +27,29 @@ remove_git_origin () {
 
 rename_database_names () {
   echo "Renaming database.yml"
-  sed -i '' "s/rapid_rails/$project_name/g" config/database.yml
+  sed -i '' "s/lightning_rails/$project_name/g" config/database.yml
 }
 
 rename_docker_compose () {
   echo "Renaming docker-compose.yml"
-  sed -i '' "s/rapid_rails/$project_name/g" docker-compose.yml
+  sed -i '' "s/lightning_rails/$project_name/g" docker-compose.yml
 }
 
 rename_cable () {
   echo "Renaming cable.yml"
-  sed -i '' "s/rapid_rails/$project_name/g" config/cable.yml
+  sed -i '' "s/lightning_rails/$project_name/g" config/cable.yml
 }
 
 prepare_for_deploy () {
   echo "Renaming deploy.yml"
   sed -i '' "s/<prod_ip>/$prod_ip/g" config/deploy.yml
   sed -i '' "s/hetsketch/$dockerhub_username/g" config/deploy.yml
-  sed -i '' "s/rapid_rails/$project_name/g" config/deploy.yml
+  sed -i '' "s/lightning_rails/$project_name/g" config/deploy.yml
 }
 
 rename_dependencies () {
   echo "Renaming dependencies.sh"
-  sed -i '' "s/rapid-rails/$project_name/g" dependencies.sh
+  sed -i '' "s/lightning-rails/$project_name/g" dependencies.sh
 }
 
 main

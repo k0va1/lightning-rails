@@ -1,5 +1,5 @@
-service: rapid_rails
-image: hetsketch/rapid_rails
+service: lightning_rails
+image: hetsketch/lightning_rails
 
 servers:
   web:
@@ -40,7 +40,7 @@ accessories:
     port: 5432
     env:
       clear:
-        POSTGRES_DB: rapid_rails_production
+        POSTGRES_DB: lightning_rails_production
       secret:
         - POSTGRES_PASSWORD
     directories:
