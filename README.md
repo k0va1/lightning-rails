@@ -1,13 +1,5 @@
 # Template for building Rails Turbo Apps from scratch
 
-### TODO
-
-* Add docs
-* Add Makefile
-* Add gems & libs
-* Add tests
-* Add script for renaming project
-
 ### How to use
 
 1. Clone the repo
@@ -62,3 +54,12 @@ be rails g active_admin_setup
 
 * https://github.com/kirillplatonov/hotwire-livereload for live reload
 * https://github.com/rails/tailwindcss-rails
+
+
+### TODO
+
+* Add docs
+* Add Makefile
+* Add gems & libs
+* Add tests
+* Add script for renaming project
