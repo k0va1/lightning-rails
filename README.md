@@ -10,14 +10,14 @@
 
 ### How to use
 
-* Clone the repo
+1. Clone the repo
 
-There are two options how to do it
+There are two options how to do it:
 
-1. Use classic `git clone https://github.com/k0va1/lightning-rails.git`
-2. Click on [Use this template](https://github.com/new?template_name=lightning-rails&template_owner=k0va1)` on Github and clone it afterwards
+* Use classic `git clone https://github.com/k0va1/lightning-rails.git`
+* Click on [Use this template](https://github.com/new?template_name=lightning-rails&template_owner=k0va1)` on Github and clone it afterwards
 
-* Rename and prepare the project
+2. Rename and prepare the project
 
 Go to `setup.sh` and rename these variables according to your values
 
@@ -33,19 +33,19 @@ Run `setup.sh`
 ./setup.sh
 ```
 
-* Install dependencies
+3. Install dependencies
 
 ```
 make install
 ```
 
-* Setup database
+4. Setup database
 
 ```
 make db-prepare
 ```
 
-* Start the project
+5. Start the project
 
 ```
 make start
