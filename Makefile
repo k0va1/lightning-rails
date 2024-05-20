@@ -4,7 +4,8 @@ GROUP=$(shell id -gn)
 APPDIR=$(PWD)
 
 install:
-	docker-compose run --rm runner bundle install && yarn install
+	docker-compose run --rm runner bundle install
+	docker-compose run --rm runner yarn install
 
 start:
 	docker-compose up rails css js sidekiq
@@ -14,6 +15,7 @@ clear-jobs:
 
 db-reset:
 	docker-compose run --rm runner bundle exec rails db:drop
+	docker-compose run --rm -e RAILS_ENV=test runner bundle exec rails db:drop
 
 db-prepare: db-reset
 	docker-compose run --rm runner bundle exec rails db:create db:migrate db:seed
