@@ -46,7 +46,7 @@ make db-prepare
 
 ```
 make start
-``
+```
 
 ### How to add ActiveAdmin
 
