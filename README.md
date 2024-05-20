@@ -6,8 +6,13 @@
 
 There are two options how to do it:
 
-* Use classic `git clone https://github.com/k0va1/lightning-rails.git`
-* Click on [Use this template](https://github.com/new?template_name=lightning-rails&template_owner=k0va1)` on Github and clone it afterwards
+* Use classic
+
+```
+git clone https://github.com/k0va1/lightning-rails.git
+```
+
+* Click on [Use this template](https://github.com/new?template_name=lightning-rails&template_owner=k0va1) on Github and clone it afterwards
 
 2. Rename and prepare the project
 
@@ -54,7 +59,6 @@ be rails g active_admin_setup
 
 * https://github.com/kirillplatonov/hotwire-livereload for live reload
 * https://github.com/rails/tailwindcss-rails
-
 
 ### TODO
 
