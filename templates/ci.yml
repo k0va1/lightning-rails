@@ -51,7 +51,9 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Run linters
-        run: bundle exec rake standard
+        run: |
+          bundle exec rake standard
+          bundle exec erblint --lint-all
 
       - name: Setup Node
         uses: actions/setup-node@v2

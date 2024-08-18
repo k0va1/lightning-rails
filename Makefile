@@ -43,9 +43,11 @@ dive:
 
 lint:
 	docker-compose run --rm runner bundle exec rake standard
+	docker-compose run --rm runner bundle exec erblint --lint-all
 
 lint-fix:
 	docker-compose run --rm runner bundle exec rake standard:fix
+	docker-compose run --rm runner bundle exec erblint --lint-all --auto
 
 change-secrets:
 	docker-compose run --rm runner bundle exec rails credentials:edit --environment=$(filter-out $@,$(MAKECMDGOALS))

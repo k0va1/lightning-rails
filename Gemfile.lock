@@ -79,6 +79,13 @@ GEM
     annotaterb (4.11.0)
     ast (2.4.2)
     base64 (0.2.0)
+    better_html (2.1.1)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bigdecimal (3.1.4)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -123,6 +130,13 @@ GEM
     docile (1.4.0)
     drb (2.2.0)
       ruby2_keywords
+    erb_lint (0.6.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop (>= 1)
+      smart_properties
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
@@ -306,6 +320,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -374,6 +389,7 @@ DEPENDENCIES
   cuprite
   database_cleaner-active_record
   debug
+  erb_lint
   factory_bot_rails
   faker
   hotwire-livereload (~> 1.2)
