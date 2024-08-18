@@ -30,7 +30,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
+  gem "annotaterb"
   gem "colorize"
   gem "web-console"
   gem "hotwire-livereload", "~> 1.2"
