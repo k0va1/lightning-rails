@@ -11,6 +11,7 @@ development:
 test:
   <<: *default
   database: lightning_rails_test
+  url: <%= Rails.application.credentials.database_url %>
 
 production:
   <<: *default
