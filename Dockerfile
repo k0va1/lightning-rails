@@ -64,19 +64,18 @@ FROM base
 # Also almost all web applications have image upload and convert functionality,
 # so you need to install `imagemagick`.
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y libvips postgresql-client imagemagick tzdata curl && \
+    apt-get install --no-install-recommends -y libvips postgresql-client imagemagick tzdata curl vim && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Copy built artifacts: node, gems, application
-COPY --from=build /usr/local/node /usr/local/node
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
-
 # Run and own the application files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails log tmp db storage
+RUN useradd www --create-home --shell /bin/bash
 
-USER rails:rails
+USER www
+
+# Copy built artifacts: node, gems, application
+COPY --from=build --chown=www /usr/local/node /usr/local/node
+COPY --from=build --chown=www /usr/local/bundle /usr/local/bundle
+COPY --from=build --chown=www /rails /rails
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
