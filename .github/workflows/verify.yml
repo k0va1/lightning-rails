@@ -5,9 +5,12 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    container:
+      image: ruby:3.2.2
+
     services:
       postgres:
-        image: postgres:13.0
+        image: postgres:15.0
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -19,7 +22,7 @@ jobs:
           --health-retries 5
 
       redis:
-        image: redis:6.2-alpine
+        image: redis:7.0
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -30,13 +33,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
+      - name: Gem cache
+        id: cache-bundle
+        uses: actions/cache@v1
         with:
-          ruby-version: '3.2.2'
-          bundler-cache: true
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: Bundle install
+        env:
+          RAILS_ENV: test
+        run: |
+          gem install bundler
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
 
       - name: Run linters
         run: bundle exec rake standard
@@ -44,12 +56,25 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 16
-          cache: yarn
+          node-version: 20
 
-      - name: Install packages
-        run: |
-          yarn install --pure-lockfile
+      - name: Install yarn
+        run: npm install -g yarn
+
+      # NOTE: Yarn cache doesn't seem to be working quite yet
+      - name: Get yarn cache dir
+        id: yarn-cache-dir
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Yarn cache
+        id: cache-yarn
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir.outputs.dir }}
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install --pure-lockfile
 
       - name: Run tests
         run: |
@@ -58,5 +83,47 @@ jobs:
           bundle exec rspec
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/rapid_rails_test
-          REDIS_URL: redis://redis:6379
+
+  build_and_deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: [tests]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+    env:
+      RAILS_ENV: production
+      DOCKER_BUILDKIT: 1
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+      KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+      - run: gem install kamal
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: image=moby/buildkit:master
+      - name: Kamal Deploy
+        id: kamal-deploy
+        run: |
+          kamal lock release
+          kamal deploy
