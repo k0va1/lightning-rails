@@ -46,7 +46,7 @@ prepare_for_deploy () {
   sed -i '' "s/hetsketch/$dockerhub_username/g" config/deploy.yml
   sed -i '' "s/lightning_rails/$project_name/g" config/deploy.yml
   echo "Copying templates/ci.yml"
-  mv templates/ci.yml .github/workflows/ci.yml
+  cp -f templates/ci.yml .github/workflows/ci.yml
 }
 
 rename_dependencies () {
