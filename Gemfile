@@ -21,6 +21,8 @@ gem "turbo-rails"
 gem "sidekiq"
 gem "sidekiq-scheduler"
 
+gem "strong_migrations"
+
 group :development, :test do
   gem "bullet", "~> 7.1.3"
   gem "debug"
