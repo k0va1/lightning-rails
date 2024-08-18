@@ -1,5 +1,7 @@
 # Template for building Rails Turbo Apps from scratch
 
+![Lightning Rails](images/logo.webp)
+
 ### How to use
 
 1. Clone the repo
