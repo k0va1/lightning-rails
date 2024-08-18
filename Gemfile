@@ -8,7 +8,6 @@ ruby "3.2.2"
 gem "bootsnap", require: false
 gem "bundler-audit"
 gem "counter_culture", "~> 2.0"
-gem "hotwire-livereload", "~> 1.2", group: :development
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 6.4"
@@ -34,6 +33,7 @@ group :development do
   gem "annotate"
   gem "colorize"
   gem "web-console"
+  gem "hotwire-livereload", "~> 1.2"
 end
 
 group :test do

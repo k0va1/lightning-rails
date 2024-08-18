@@ -1,6 +1,9 @@
 service: lightning_rails
 image: hetsketch/lightning_rails
 
+ssh:
+  user: www
+
 servers:
   web:
     hosts:
@@ -14,11 +17,9 @@ registry:
   password:
     - KAMAL_REGISTRY_PASSWORD
 
-ssh:
-  user: www
-
 builder:
-  multiarch: false
+  remote:
+    arch: amd64
   args:
     RUBY_VERSION: '3.2.2'
     NODE_VERSION: '18.12.0'
@@ -48,9 +49,14 @@ accessories:
   redis:
     image: redis:7.0
     host: <%= ENV["DEPLOY_HOST"] %>
-    port: 6379
+    cmd: redis-server --requirepass <%= ENV["REDIS_PASSWORD"] %> --replica-read-only no
+    env:
+      secret:
+        - REDIS_PASSWORD
     directories:
       - redis_data:/data
+  options:
+    network: "private"
 
 traefik:
   args:
@@ -59,6 +65,8 @@ traefik:
   labels:
     traefik.http.middlewares.test-compress.compress: true
     traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control: public,max-age=2592000
+  options:
+    network: "private"
 
 healthcheck:
   path: /up

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+hosts = ENV["KAMAL_HOSTS"].split(",")
+user = "www"
+network_name = "private"
+
+hosts.each do |ip|
+  destination = "#{user}@#{ip}"
+  puts "Creating a Docker network \"#{network_name}\" on #{destination}"
+  `ssh #{destination} docker network create #{network_name}`
+end
