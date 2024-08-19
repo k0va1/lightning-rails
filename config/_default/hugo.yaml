@@ -3,8 +3,8 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: "Hugo Docs" # Website name
-baseURL: 'https://example.com/' # Website URL
+title: "Lightning Rails" # Website name
+baseURL: 'https://lightningrails.xyz/' # Website URL
 
 ############################
 ## PAGE OPTIONS
