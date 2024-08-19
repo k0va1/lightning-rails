@@ -17,7 +17,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Author of Lightning Rails
+role: Lightning Rails creator
 
 # Short bio (displayed in user profile at end of posts)
 bio: I love cats and code
