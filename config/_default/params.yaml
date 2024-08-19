@@ -49,12 +49,7 @@ header:
 # Site footer
 footer:
   copyright:
-    notice: '© {year} My Company. This work is licensed under {license}'
-    license:
-      enable: true
-      allow_derivatives: false
-      share_alike: true
-      allow_commercial: false
+    notice: '© {year} Lightning Rails. Crafted with ❤️‍🔥 by <a href="https://x.com/k0va1_" target="blank">Alex</a>'
 
 # Localization
 locale:

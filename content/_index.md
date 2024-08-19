@@ -10,8 +10,8 @@ design:
 sections:
   - block: hero
     content:
-      title: Write Docs Fast, Focus on Your Content
-      text: The easy, no-code technical documentation solution your users will love 🎉
+      title: Prototype Rails apps Fast, Focus on Your Business
+      text: Don't `rails new ...`, get things done 🚀
       primary_action:
         text: Get Started
         url: https://hugoblox.com/templates/details/docs/
@@ -20,7 +20,7 @@ sections:
         text: Read the docs
         url: /docs/
       announcement:
-        text: "Announcing the release of version 2."
+        text: "Announcing the release of version j."
         link:
           text: "Read more"
           url: "/blog/"
@@ -42,15 +42,15 @@ sections:
       items:
         - statistic: "1M+"
           description: |
-            Websites built  
+            Websites built
             with Hugo Blox
         - statistic: "10k+"
           description: |
-            GitHub stars  
+            GitHub stars
             since 2016
         - statistic: "3k+"
           description: |
-            Discord community  
+            Discord community
             for support
     design:
       # Section background color (CSS class)
@@ -82,16 +82,4 @@ sections:
         - name: Swappable Blocks
           icon: rectangle-group
           description: Build your pages with blocks - no coding required!
-  - block: cta-card
-    content:
-      title: "Start Writing with the #1 Effortless Documentation Platform"
-      text: Hugo Blox Docs Theme brings all your technical knowledge together in a single, centralized knowledge base. Easily search and edit it with the tools you use every day!
-      button:
-        text: Get Started
-        url: https://hugoblox.com/templates/details/docs/
-    design:
-      card:
-        # Card background color (CSS class)
-        css_class: "bg-primary-700"
-        css_style: ""
 ---
