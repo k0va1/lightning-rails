@@ -6,7 +6,7 @@ env:
 on:
   # Trigger the workflow every time you push to the `main` branch
   push:
-    branches: ["main"]
+    branches: ["gh-pages"]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
