@@ -17,9 +17,9 @@ update_versions() {
 }
 
 rebuild_images() {
-  docker-compose down
+  docker compose down
   docker rmi $(docker images 'lightning-rails'  -a -q) -f
-  docker-compose build runner
+  docker compose build runner
   make install
 }
 
