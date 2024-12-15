@@ -74,7 +74,7 @@ services:
     command: bundle exec sidekiq -C config/sidekiq.yml
 
   postgres:
-    image: postgres:17
+    image: postgres:17.0
     volumes:
       - .dockerdev/.psqlrc:/root/.psqlrc:ro
       - postgres:/var/lib/postgresql/data
@@ -89,7 +89,7 @@ services:
       interval: 5s
 
   redis:
-    image: redis:6.2-alpine
+    image: redis:7.0-alpine
     volumes:
       - redis:/data
     ports:

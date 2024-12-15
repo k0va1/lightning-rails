@@ -5,7 +5,7 @@ node_version=22
 yarn_version=1.22.22
 postgres_major=17
 postgres_version=17.0
-redis_version=6.2
+redis_version=7.0
 bundler_version=2.5.0
 
 platform=''
@@ -73,6 +73,7 @@ update_postgres_versions() {
 
 update_redis_versions() {
   replace_occurrences "s/REDIS_VERSION: '.*'/REDIS_VERSION: '$redis_version'/g" docker-compose.yml
+  replace_occurrences "s/image: redis:.*/image: redis:$redis_version-alpine/g" docker-compose.yml
   replace_occurrences "s/image: redis:.*/image: redis:$redis_version/g" .github/workflows/ci.yml
   replace_occurrences "s/image: redis:.*/image: redis:$redis_version/g" config/deploy.yml
 }

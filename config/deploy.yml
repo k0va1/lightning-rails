@@ -36,7 +36,7 @@ env:
 
 accessories:
   postgres:
-    image: postgres:17
+    image: postgres:17.0
     host: <%= ENV["DEPLOY_HOST"] %>
     port: 5432
     env:
@@ -47,7 +47,7 @@ accessories:
     directories:
       - pg_data:/var/lib/postgresql/data
   redis:
-    image: redis:6.2
+    image: redis:7.0
     host: <%= ENV["DEPLOY_HOST"] %>
     cmd: redis-server --requirepass <%= ENV["REDIS_PASSWORD"] %> --replica-read-only no
     env:
