@@ -6,11 +6,11 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     container:
-      image: ruby:3.2.2
+      image: ruby:3.3.6
 
     services:
       postgres:
-        image: postgres:15.0
+        image: postgres:17.0
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install yarn
         run: npm install -g yarn

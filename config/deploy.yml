@@ -21,9 +21,9 @@ builder:
   remote:
     arch: amd64
   args:
-    RUBY_VERSION: '3.2.2'
-    NODE_VERSION: '18.12.0'
-    YARN_VERSION: '1.22.15'
+    RUBY_VERSION: '3.3.6'
+    NODE_VERSION: 22
+    YARN_VERSION: '1.22.22'
     RAILS_ENV: production
 
 env:
@@ -36,7 +36,7 @@ env:
 
 accessories:
   postgres:
-    image: postgres:15.0
+    image: postgres:17.0
     host: <%= ENV["DEPLOY_HOST"] %>
     port: 5432
     env:
