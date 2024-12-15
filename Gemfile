@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.3.6"
 
 gem "bootsnap", require: false
 gem "bundler-audit"
@@ -24,7 +24,7 @@ gem "sidekiq-scheduler"
 gem "strong_migrations"
 
 group :development, :test do
-  gem "bullet", "~> 7.1.3"
+  gem "bullet", "~> 8.0.0"
   gem "debug"
   gem "factory_bot_rails"
   gem "faker"

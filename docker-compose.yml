@@ -3,11 +3,11 @@ x-app: &app
     context: .dockerdev
     dockerfile: Dockerfile
     args:
-      RUBY_VERSION: '3.2.2'
-      PG_MAJOR: '13'
-      BUNDLER_VERSION: '2.4.10'
-      NODE_MAJOR: '14'
-      YARN_VERSION: '1.22.15'
+      RUBY_VERSION: '3.3.6'
+      PG_MAJOR: 17
+      BUNDLER_VERSION: '2.5.0'
+      NODE_MAJOR: 20
+      YARN_VERSION: '1.22.22'
   environment: &env
     NODE_ENV: ${NODE_ENV:-development}
     RAILS_ENV: ${RAILS_ENV:-development}
@@ -74,7 +74,7 @@ services:
     command: bundle exec sidekiq -C config/sidekiq.yml
 
   postgres:
-    image: postgres:13.0
+    image: postgres:17
     volumes:
       - .dockerdev/.psqlrc:/root/.psqlrc:ro
       - postgres:/var/lib/postgresql/data

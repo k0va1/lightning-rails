@@ -1,5 +1,5 @@
 ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION-slim-buster
+FROM ruby:$RUBY_VERSION-slim-bookworm
 
 ARG PG_MAJOR
 ARG NODE_MAJOR
@@ -35,7 +35,7 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrad
 
 # Add PostgreSQL to sources list
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
+  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 # Add NodeJS to sources list
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
