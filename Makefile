@@ -2,6 +2,7 @@
 
 GROUP=$(shell id -gn)
 APPDIR=$(PWD)
+UNAME_S=$(shell uname -s)
 
 install:
 	docker compose run --rm runner bundle install
@@ -22,7 +23,11 @@ db-prepare: db-reset
 	docker compose run --rm -e RAILS_ENV=test runner bundle exec rails db:create db:migrate
 
 db-migrate:
-	docker compose run --rm runner bundle exec rails db:create db:migrate
+	docker compose run --rm runner bundle exec rails db:migrate
+	docker compose run --rm -e RAILS_ENV=test runner bundle exec rails db:migrate
+
+db-rollback:
+	docker compose run --rm runner bundle exec rails db:rollback
 	docker compose run --rm -e RAILS_ENV=test runner bundle exec rails db:migrate
 
 db-open:
@@ -51,11 +56,27 @@ lint-fix:
 
 change-secrets:
 	docker compose run --rm runner bundle exec rails credentials:edit --environment=$(filter-out $@,$(MAKECMDGOALS))
+ifeq ($(UNAME_S),Linux)
 	sudo chown -R $(USER):$(GROUP) .
+endif
+
+attach:
+	docker compose attach $(filter-out $@,$(MAKECMDGOALS))
+
+restart:
+	docker compose restart $(filter-out $@,$(MAKECMDGOALS))
+
+kamal:
+	@env $$(cat .env | xargs) kamal $(filter-out $@,$(MAKECMDGOALS))
+
+prod-cons:
+	kamal app exec -i 'bin/rails console'
 
 g:
 	docker compose run --rm runner bundle exec rails g $(filter-out $@,$(MAKECMDGOALS))
+ifeq ($(UNAME_S),Linux)
 	sudo chown -R $(USER):$(GROUP) .
+endif
 
 d:
 	docker compose run --rm runner bundle exec rails d $(filter-out $@,$(MAKECMDGOALS))
