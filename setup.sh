@@ -18,7 +18,11 @@ rename_project () {
   echo "Renaming project"
   cd . || return
   new_dir=${PWD%/*}/$project_name
-  mv -- "$PWD" "$new_dir" && cd -- "$new_dir"
+  if [ -d "$new_dir" ]; then
+    echo "Directory $new_dir already exists"
+  else
+    mv -- "$PWD" "$new_dir" && cd -- "$new_dir"
+  fi
 }
 
 remove_git_origin () {
