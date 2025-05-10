@@ -1,30 +1,38 @@
 service: lightning_rails
-image: hetsketch/lightning_rails
+image: k0va1/lightning_rails
 
 ssh:
   user: www
 
-servers:
-  web:
-    hosts:
-      - <%= ENV["DEPLOY_HOST"] %>
-    options:
-      add-host: host.docker.internal:host-gateway
-      memory: 512M
-
 registry:
-  username: hetsketch
+  server: ghcr.io
+  username: k0va1
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
-  remote:
-    arch: amd64
+  arch: amd64
   args:
-    RUBY_VERSION: '3.3.6'
-    NODE_VERSION: 22
-    YARN_VERSION: '1.22.22'
-    RAILS_ENV: production
+    RUBY_VERSION: "3.3.6"
+    NODE_VERSION: "20.18.1"
+    YARN_VERSION: "1.22.22"
+    RAILS_ENV: "production"
+  secrets:
+    - RAILS_MASTER_KEY
+
+servers:
+  web:
+    hosts:
+      - <prod_ip>
+    options:
+      memory: 512M
+
+  worker:
+    hosts:
+      - <prod_ip>
+    options:
+      memory: 2048M
+    cmd: bundle exec sidekiq -C config/sidekiq.yml
 
 env:
   clear:
@@ -36,9 +44,9 @@ env:
 
 accessories:
   postgres:
-    image: postgres:17.0
-    host: <%= ENV["DEPLOY_HOST"] %>
-    port: 5432
+    image: postgres:17
+    hosts:
+      - <prod_ip>
     env:
       clear:
         POSTGRES_DB: lightning_rails_production
@@ -46,28 +54,36 @@ accessories:
         - POSTGRES_PASSWORD
     directories:
       - pg_data:/var/lib/postgresql/data
+
   redis:
     image: redis:7.0
-    host: <%= ENV["DEPLOY_HOST"] %>
-    cmd: redis-server --requirepass <%= ENV["REDIS_PASSWORD"] %> --replica-read-only no
+    hosts:
+      - <prod_ip>
+    cmd: "/bin/sh -c 'redis-server --requirepass $REDIS_PASSWORD' --replica-read-only no"
     env:
       secret:
         - REDIS_PASSWORD
     directories:
       - redis_data:/data
-  options:
-    network: "private"
 
-traefik:
-  args:
-    accesslog: true
-    accesslog.format: json
-  labels:
-    traefik.http.middlewares.test-compress.compress: true
-    traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control: public,max-age=2592000
-  options:
-    network: "private"
+proxy:
+  ssl: false
+  app_port: 3000
+  forward_headers: true
+  healthcheck:
+    interval: 3
+    path: /up
+    timeout: 3
+  logging:
+    request_headers:
+      - Cache-Control
+      - X-Forwarded-Proto
+    response_headers:
+      - X-Request-ID
+      - X-Request-Start
 
-healthcheck:
-  path: /up
-  interval: 10s
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
