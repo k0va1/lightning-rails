@@ -1,2 +1,2 @@
 [servers]
-telehunter ansible_host=<prod_ip> ansible_user=root
+lightning_rails ansible_host=<prod_ip> ansible_user=root
