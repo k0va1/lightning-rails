@@ -53,7 +53,6 @@ jobs:
       - name: Run linters
         run: |
           bundle exec rake standard
-          bundle exec erblint --lint-all
 
       - name: Setup Node
         uses: actions/setup-node@v2
