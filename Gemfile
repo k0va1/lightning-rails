@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -8,14 +6,14 @@ ruby "3.3.6"
 gem "bootsnap", require: false
 gem "bundler-audit"
 gem "counter_culture", "~> 2.0"
+gem "cssbundling-rails"
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 6.4"
-gem "rails", "~> 8.0.1"
+gem "rails", "~> 8.0.2"
 gem "redis", "~> 4.0"
-gem "sprockets-rails"
+gem "propshaft"
 gem "stimulus-rails"
-gem "tailwindcss-rails", "~> 2.0"
 gem "turbo-rails"
 
 gem "sidekiq"
@@ -29,14 +27,14 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "standard"
-  gem "erb_lint", require: false
 end
 
 group :development do
   gem "annotaterb"
   gem "colorize"
   gem "web-console"
-  gem "hotwire-livereload", "~> 1.2"
+  gem "hotwire-livereload"
+  gem "rack-mini-profiler", require: false
 end
 
 group :test do

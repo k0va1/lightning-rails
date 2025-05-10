@@ -53,17 +53,20 @@ services:
     <<: *backend
     command: /bin/bash
     ports:
-      - '3000:3000'
+      - "3000:3000"
 
   rails:
     <<: *backend
+    depends_on:
+      css:
+        condition: service_started
     command: bundle exec rails server -b 0.0.0.0
     ports:
-      - '3000:3000'
+      - "3000:3000"
 
   css:
     <<: *backend
-    command: bundle exec rails tailwindcss:watch
+    command: yarn build:css --watch
 
   js:
     <<: *backend
