@@ -1,0 +1,130 @@
+---
+# Simple playbook to prepare Ubuntu server for Rails deployment with Kamal
+- name: Setup server for Kamal Rails deployment
+  hosts: all
+  become: true
+  vars:
+    deploy_user: www
+    ssh_public_key: "{{ lookup('file', 'files/key.pub') }}"
+
+  tasks:
+    # Update system packages
+    - name: Update and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    # Install necessary packages
+    - name: Install required packages
+      apt:
+        name:
+          - ufw
+          - fail2ban
+          - curl
+          - git
+          - ca-certificates
+          - gnupg
+          - vim
+          - cron
+        state: present
+
+    # Create deploy user
+    - name: Create deploy user
+      user:
+        name: "{{ deploy_user }}"
+        comment: "Deploy User"
+        groups: sudo
+        shell: /bin/bash
+        create_home: yes
+
+    # Configure sudo access without password
+    - name: Allow deploy user to use sudo without password
+      lineinfile:
+        path: /etc/sudoers.d/{{ deploy_user }}
+        line: "{{ deploy_user }} ALL=(ALL) NOPASSWD:ALL"
+        state: present
+        create: yes
+        mode: 0440
+
+    # Set up SSH for deploy user
+    - name: Create SSH directory for deploy user
+      file:
+        path: "/home/{{ deploy_user }}/.ssh"
+        state: directory
+        owner: "{{ deploy_user }}"
+        group: "{{ deploy_user }}"
+        mode: '0700'
+
+    # Add SSH key for deploy user
+    - name: Add authorized key for deploy user
+      authorized_key:
+        user: "{{ deploy_user }}"
+        state: present
+        key: "{{ ssh_public_key }}"
+
+    # Configure firewall
+    - name: Allow SSH traffic
+      ufw:
+        rule: allow
+        port: '22'
+        proto: tcp
+
+    # Allow HTTP and HTTPS traffic
+    - name: Allow HTTP traffic
+      ufw:
+        rule: allow
+        port: '80'
+        proto: tcp
+
+    - name: Allow HTTPS traffic
+      ufw:
+        rule: allow
+        port: '443'
+        proto: tcp
+
+    # Enable the firewall
+    - name: Enable UFW
+      ufw:
+        state: enabled
+        policy: deny
+
+    # Enable cron
+    - name: Ensure cron service is running
+      service:
+        name: cron
+        state: started
+        enabled: yes
+
+    # Install Docker for Kamal deployments
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Add deploy user to docker group
+      user:
+        name: "{{ deploy_user }}"
+        groups: docker
+        append: yes
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes

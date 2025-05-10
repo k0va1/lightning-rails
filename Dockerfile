@@ -12,7 +12,8 @@ FROM ruby:$RUBY_VERSION-slim as base
 WORKDIR /rails
 
 # Here is some Ruby magic and configuration options
-ENV BUNDLE_DEPLOYMENT="1" \
+ENV RAILS_ENV="production" \
+  BUNDLE_DEPLOYMENT="1" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development:test" \
   HOME=/rails
@@ -46,13 +47,12 @@ RUN yarn install --frozen-lockfile
 # Copy application code
 COPY . .
 
-ARG RAILS_ENV
-
-# If you are already on Rails 7.1+,
-# then you will be able to use new SECRET_KEY_BASE_DUMMY=1 variable,
-# however below is a workaround for Rails 7.0 and below.
-RUN SECRET_KEY_BASE=1 DATABASE_URL=postgresql://dummy@localhost/dummy RAILS_ENV=$RAILS_ENV \
-  bundle exec rake assets:precompile
+RUN --mount=type=secret,id=RAILS_MASTER_KEY \
+  SECRET_KEY_BASE_DUMMY=1 \
+  RAILS_MASTER_KEY=$(cat /run/secrets/RAILS_MASTER_KEY) \
+  RAILS_ENV=production \
+  bundle exec rails assets:precompile && \
+  rm -rf /usr/local/bundle/cache
 
 # Start again from base image to throw away anything that is not needed
 # from build stage.

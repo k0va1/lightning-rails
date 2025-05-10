@@ -48,11 +48,9 @@ dive:
 
 lint:
 	docker compose run --rm runner bundle exec rake standard
-	docker compose run --rm runner bundle exec erblint --lint-all
 
 lint-fix:
 	docker compose run --rm runner bundle exec rake standard:fix
-	docker compose run --rm runner bundle exec erblint --lint-all --auto
 
 change-secrets:
 	docker compose run --rm runner bundle exec rails credentials:edit --environment=$(filter-out $@,$(MAKECMDGOALS))
@@ -71,6 +69,12 @@ kamal:
 
 prod-cons:
 	kamal app exec -i 'bin/rails console'
+
+deploy:
+	@env $$(cat .env | xargs) kamal deploy
+
+infra-setup:
+	ansible-playbook -i infra/inventory/hosts infra/setup.yml
 
 g:
 	docker compose run --rm runner bundle exec rails g $(filter-out $@,$(MAKECMDGOALS))
