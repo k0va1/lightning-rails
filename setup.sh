@@ -1,7 +1,7 @@
 #!/bin/bash
 
 project_name="mvp"
-dockerhub_username="hetsketch"
+dockerhub_username="k0va1"
 prod_ip="1.1.1.1"
 
 main () {
@@ -47,8 +47,10 @@ rename_cable () {
 prepare_for_deploy () {
   echo "Renaming deploy.yml"
   sed -i '' "s/<prod_ip>/$prod_ip/g" config/deploy.yml
-  sed -i '' "s/hetsketch/$dockerhub_username/g" config/deploy.yml
+  sed -i '' "s/k0va1/$dockerhub_username/g" config/deploy.yml
   sed -i '' "s/lightning_rails/$project_name/g" config/deploy.yml
+  sed -i '' "s/lightning_rails/$project_name/g" infra/inventory/hosts
+  sed -i '' "s/<prod_ip>/$prod_ip/g" infra/inventory/hosts
   echo "Copying templates/ci.yml"
   cp -f templates/ci.yml .github/workflows/ci.yml
 }

@@ -2,6 +2,13 @@
 
 ![Lightning Rails](images/logo.webp)
 
+### Key features
+
+* Postgres, Redis, Sidekiq, Puma
+* Tailwind + Hotwire + Stimulus
+* Kamal deployment
+* RSpec for testing
+
 ### How to use
 
 1. Clone the repo
@@ -18,11 +25,11 @@ git clone https://github.com/k0va1/lightning-rails.git
 
 2. Rename and prepare the project
 
-Go to `setup.sh` and rename these variables according to your values
+Go to `setup.sh` and rename variables according to your values
 
 ```
 project_name="mvp" <- your project name
-dockerhub_username="hetsketch" <- your username on dockerhub
+dockerhub_username="k0va1" <- your username on dockerhub
 prod_ip="1.1.1.1" <- your future production server's IP. In case you don't have yet leave it as is
 ```
 
@@ -56,16 +63,3 @@ make start
 make dive
 be rails g active_admin_setup
 ```
-
-### What's inside?
-
-* https://github.com/kirillplatonov/hotwire-livereload for live reload
-* https://github.com/rails/tailwindcss-rails
-
-### TODO
-
-* Add docs
-* Add Makefile
-* Add gems & libs
-* Add tests
-* Add script for renaming project
