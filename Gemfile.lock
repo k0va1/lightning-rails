@@ -74,6 +74,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    amazing_print (1.8.1)
     annotaterb (4.14.0)
     ast (2.4.3)
     base64 (0.2.0)
@@ -194,6 +195,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
+    pagy (9.3.4)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -380,6 +382,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  amazing_print
   annotaterb
   bootsnap
   bullet (~> 8.0.0)
@@ -395,6 +398,7 @@ DEPENDENCIES
   faker
   hotwire-livereload
   jsbundling-rails
+  pagy
   pg (~> 1.1)
   propshaft
   puma (~> 6.4)

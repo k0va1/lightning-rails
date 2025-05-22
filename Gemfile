@@ -27,6 +27,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "standard"
+  gem "amazing_print"
 end
 
 group :development do

@@ -43,7 +43,7 @@ test:
 cons:
 	docker compose run --rm runner bundle exec rails console
 
-dive:
+bash:
 	docker compose run --rm runner bash
 
 lint:
