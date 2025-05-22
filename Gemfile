@@ -20,6 +20,7 @@ gem "sidekiq"
 gem "sidekiq-scheduler"
 
 gem "strong_migrations"
+gem "pagy"
 
 group :development, :test do
   gem "bullet", "~> 8.0.0"
