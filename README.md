@@ -1,4 +1,4 @@
-# Template for building Rails Turbo Apps from scratch
+# Template for building Rails Apps from scratch
 
 ![Lightning Rails](images/logo.webp)
 
@@ -8,6 +8,7 @@
 * Tailwind + Hotwire + Stimulus
 * Kamal deployment
 * RSpec for testing
+* Puma dev
 
 ### How to use
 

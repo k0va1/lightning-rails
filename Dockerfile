@@ -6,7 +6,7 @@
 ARG RUBY_VERSION
 
 # Create new stage from ruby-slim image with selected Ruby version.
-FROM ruby:$RUBY_VERSION-slim as base
+FROM ruby:$RUBY_VERSION-slim AS base
 
 # We are Rails developers, so we want to keep our app under /rails directory
 WORKDIR /rails

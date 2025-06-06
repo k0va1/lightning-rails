@@ -50,4 +50,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.app_host = "localhost:3000"
+  config.app_origin = "http://#{config.app_host}"
 end
+Rails.application.default_url_options = {host: Rails.configuration.app_host}
